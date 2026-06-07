@@ -3,31 +3,57 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class FrontController extends Controller
 {
-    public function index(): View {
+    public function index(Request $request): View|JsonResponse
+    {
         $posts = Post::whereNotNull('published_at')->orderByDesc('published_at')->paginate(10);
+
+        if ($request->ajax()) {
+            $html = '';
+            foreach ($posts as $post) {
+                $html .= '<div class="post-preview">
+                            <a href="'.route('posts.show', $post).'">
+                                <h2 class="post-title">'.e($post->title).'</h2>
+                                <h3 class="post-subtitle">'.e($post->content).'</h3>
+                            </a>
+                            <p class="post-meta">
+                                Posted on '.$post->published_at.'
+                            </p>
+                        </div>';
+            }
+
+            return response()->json([
+                'html' => $html,
+                'nextPageUrl' => $posts->nextPageUrl(),
+            ]);
+        }
 
         return view('pages.index', compact('posts'));
     }
 
-    public function show(Post $post): View {
+    public function show(Post $post): View
+    {
         return view('pages.post', compact('post'));
     }
 
-    public function about(): View {
+    public function about(): View
+    {
         return view('pages.about');
     }
 
-    public function contact(): View {
+    public function contact(): View
+    {
         return view('pages.contact');
     }
 
-    public function contactSubmit(Request $request): RedirectResponse {
+    public function contactSubmit(Request $request): RedirectResponse
+    {
         $request->validate([
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:255',
