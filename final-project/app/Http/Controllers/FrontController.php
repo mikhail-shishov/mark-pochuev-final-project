@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Contact;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -60,6 +61,8 @@ class FrontController extends Controller
             'phone' => 'nullable|string|max:20',
             'message' => 'required|string|max:1000',
         ]);
+
+        Contact::create($request->all());
 
         return back()->with('success', 'Your message has been sent!');
     }
