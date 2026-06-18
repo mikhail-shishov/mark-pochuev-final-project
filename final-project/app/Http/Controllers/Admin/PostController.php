@@ -31,7 +31,7 @@ class PostController extends Controller {
         }
 
         $data['slug'] = Str::slug($data['title']);
-        $data['published_at'] = $data['published_at'] ? now() : null;
+        $data['published_at'] = $data['published_at'] ?? now();
 
         Post::create($data);
 

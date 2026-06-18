@@ -9,7 +9,7 @@
             <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">Create Post</a>
 
             @if (session('success'))
-                <p>{{session('success')}}</p>
+                <p><b>{{session('success')}}</b></p>
             @endif
         </div>
         <div class="card-body">
@@ -33,7 +33,7 @@
                                     No image
                                 @endif
                             </td>
-                            <td><strong>{{$post->title}}</strong>/td>
+                            <td><strong>{{$post->title}}</strong></td>
                             <td><code>{{$post->slug}}</code></td>
                             <td>
                                 @if ($post->published_at)
