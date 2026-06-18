@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\PostController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -16,4 +17,5 @@ Route::get('/posts/{post}', [FrontController::class, 'show'])->name('posts.show'
 
 Route::prefix('admin')->name('admin.')->group(function() {
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::resource('posts', PostController::class);
 });

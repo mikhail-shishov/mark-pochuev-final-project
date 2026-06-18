@@ -9,6 +9,17 @@
                 @csrf
                 @method('PUT')
 
+                <label for="image">Image</label>
+                @if($post->image)
+                    <img src="{{asset('storage/' . $post->image)}}" alt="" width="100" height="100">
+                @endif
+                <input type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" value="{{ old('image') }}">
+                @error('image')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+
                 <label for="title">Title</label>
                 <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" required>
                 @error('title')
