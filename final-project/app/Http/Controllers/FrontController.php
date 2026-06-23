@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Contact;
+use App\Models\Page;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -45,7 +46,9 @@ class FrontController extends Controller
 
     public function about(): View
     {
-        return view('pages.about');
+//        return view('pages.about');
+        $page = Page::where('slug', 'about')->firstOrFail();
+        return view('pages.about', compact('page'));
     }
 
     public function contact(): View
