@@ -15,6 +15,11 @@
             <i class="fas fa-fw fa-table"></i>
             <span>Posts</span></a>
     </li>
+    <li class="nav-item {{ request()->routeIs('admin.pages.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{route('admin.pages.index')}}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Pages</span></a>
+    </li>
     <hr class="sidebar-divider d-none d-md-block">
     <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

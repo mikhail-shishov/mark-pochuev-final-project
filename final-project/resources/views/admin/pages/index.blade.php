@@ -5,8 +5,7 @@
     <h1 class="h1">Manage pages</h1>
     <div class="card">
         <div class="card-header">
-            <h6>pages</h6>
-            <a href="{{ route('admin.pages.create') }}" class="btn btn-primary">Create page</a>
+            <h6>Pages</h6>
 
             @if (session('success'))
                 <p><b>{{session('success')}}</b></p>
@@ -29,11 +28,6 @@
                             <td>
 {{--                                <a href="{{ route('admin.pages.show', $page->id) }}" class="btn btn-info">View</a>--}}
                                 <a href="{{ route('admin.pages.edit', $page) }}" class="btn btn-warning">Edit</a>
-                                <form action="{{ route('admin.pages.destroy', $page) }}" method="page" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this page?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
                             </td>
                         </tr>
                     @empty

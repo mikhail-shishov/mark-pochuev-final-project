@@ -5,7 +5,7 @@
         <h1 class="h1">Edit</h1>
 
         <div class="card">
-            <form action="{{ route('admin.pages.update', $page) }}" method="page" enctype="multipart/form-data">
+            <form action="{{ route('admin.pages.update', $page) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
