@@ -25,12 +25,19 @@
 <body id="page-top">
     <div id="wrapper">
 
-        @include('admin.partials.sidebar')
+        @auth
+            @if (Auth::user()->isAdmin())
+                @include ('admin.partials.sidebar')
+            @endif
+        @endauth
 
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
-
-                @include('admin.partials.topbar')
+                @auth
+                    @if (Auth::user()->isAdmin())
+                        @include('admin.partials.topbar')
+                    @endif
+                @endauth
 
                 <div class="container-fluid">
                     @yield('content')
@@ -44,6 +51,33 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
+    @auth
+        @if (Auth::user()->isAdmin())
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">x</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+
+                                <button type="submit" class="btn btn-primary">Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endauth
     <!-- Bootstrap core JavaScript-->
     <script src="{{asset('vendor/sb-admin/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('vendor/sb-admin/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
